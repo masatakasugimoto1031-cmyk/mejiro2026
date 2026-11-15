@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>中井の街で試す｜12月特別講義 ワークベンチ</title>
+<style>
+:root{
+  --ac:#2e7d5a; --ac-d:#1e5a3f; --ac-l:#e7f2ec; --ink:#1f2933; --sub:#52606d; --line:#d5dde3; --bg:#ffffff; --soft:#f6f8f9;
+  --warn:#9a5b00; --base:22px; --q:32px;
+}
+html.small{ --base:18px; --q:26px; }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP",sans-serif;font-size:var(--base);line-height:1.6;-webkit-text-size-adjust:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+header.top{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:10px 18px 8px}
+.bar{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.brand{font-weight:700;color:var(--ac-d);font-size:calc(var(--base)*.9)}
+.tools{display:flex;gap:8px;align-items:center}
+.tbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:calc(var(--base)*.75);cursor:pointer}
+.saved{font-size:calc(var(--base)*.65);color:var(--sub)}
+.road{display:flex;gap:6px;margin-top:8px}
+.road button{flex:1;border:0;background:var(--soft);border-radius:10px;padding:8px 4px;font-size:calc(var(--base)*.72);color:var(--sub);cursor:pointer;line-height:1.3}
+.road button.done{background:var(--ac-l);color:var(--ac-d)}
+.road button.now{background:var(--ac);color:#fff;font-weight:700}
+.road small{display:block;font-size:.8em;opacity:.85}
+main{max-width:1100px;margin:0 auto;padding:22px 22px 140px}
+.time{display:inline-block;background:var(--ac-l);color:var(--ac-d);border-radius:8px;padding:2px 12px;font-size:calc(var(--base)*.75);font-weight:700}
+h1.q{font-size:var(--q);line-height:1.35;margin:12px 0 6px;font-weight:800}
+p.lead{margin:4px 0 14px;color:var(--sub)}
+.help{margin:8px 0 14px}
+.help summary{cursor:pointer;color:var(--ac-d);font-weight:700;font-size:calc(var(--base)*.8)}
+.help div{background:var(--soft);border-radius:12px;padding:12px 16px;margin-top:8px;font-size:calc(var(--base)*.85)}
+label.f{display:block;font-weight:700;margin:16px 0 6px}
+textarea,input[type=text]{width:100%;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;outline:none}
+textarea:focus,input[type=text]:focus{border-color:var(--ac)}
+textarea{min-height:2.6em;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0}
+.chip{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 18px;min-width:64px;cursor:pointer;text-align:left}
+.chip.on{border-color:var(--ac);background:var(--ac);color:#fff}
+.chip b{display:block;font-size:1.1em}
+.chip span{font-size:.75em;opacity:.9}
+.big4 .chip{flex:1;min-width:160px;text-align:center}
+.big4 .chip b{font-size:1.6em}
+.card{border:2px solid var(--line);border-radius:18px;padding:16px 18px;margin:12px 0;background:#fff}
+.card.soft{background:var(--soft);border-color:transparent}
+.row{display:flex;gap:16px;flex-wrap:wrap}
+.row>*{flex:1;min-width:260px}
+.cnt{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.cnt .sym{font-size:1.4em;font-weight:800;width:1.6em;display:inline-block;text-align:center}
+.cnt button{width:64px;height:64px;border-radius:16px;border:2px solid var(--line);background:#fff;font-size:1.5em;cursor:pointer}
+.cnt .n{min-width:2.2em;text-align:center;font-size:1.6em;font-weight:800}
+.stat{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+.stat div{background:var(--ac-l);color:var(--ac-d);border-radius:12px;padding:8px 14px;font-weight:700}
+.grid{display:grid;gap:10px}
+.cell{border:2px solid var(--line);border-radius:14px;padding:12px;min-height:90px;background:#fff;cursor:pointer;text-align:left}
+.cell.on{border-color:var(--ac);background:var(--ac-l)}
+.cell small{display:block;color:var(--sub)}
+.gh{font-weight:700;color:var(--ac-d);font-size:.85em;align-self:end}
+table.t{border-collapse:collapse;width:100%;margin:8px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:10px 12px;text-align:center}
+table.t th{background:var(--soft)}
+table.t td.l,table.t th.l{text-align:left}
+.list .item{display:flex;justify-content:space-between;gap:12px;align-items:center;border:2px solid var(--line);border-radius:14px;padding:12px 16px;margin:8px 0;background:#fff}
+.btn{border:0;background:var(--ac);color:#fff;border-radius:14px;padding:14px 22px;font-weight:700;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--ac-d);border:2px solid var(--ac)}
+.btn.small{padding:8px 14px;font-size:.8em}
+.note{color:var(--sub);font-size:.85em}
+.warn{color:var(--warn);font-weight:700}
+nav.bottom{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:flex;gap:12px;justify-content:space-between;align-items:center;z-index:5}
+nav.bottom .btn{min-width:200px;font-size:1.05em;padding:16px 26px}
+nav.bottom .pos{color:var(--sub);font-size:.8em;text-align:center}
+.home{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.home .card{cursor:pointer}
+.home .card:hover{border-color:var(--ac)}
+.teams{display:grid;grid-template-columns:repeat(9,1fr);gap:8px}
+.teams .chip{text-align:center;padding:14px 0;min-width:0}
+.slide{position:fixed;inset:0;background:#fff;z-index:20;display:flex;flex-direction:column;padding:4vh 6vw}
+.slide .sh{font-size:2.2vw;color:var(--ac-d);font-weight:800}
+.slide h2{font-size:4vw;margin:1vh 0 3vh;line-height:1.3}
+.slide .sb{font-size:2.4vw;line-height:1.6;flex:1;overflow:auto}
+.slide .sb table.t{font-size:2vw}
+.slide .snav{display:flex;justify-content:space-between;align-items:center;font-size:1.6vw;color:var(--sub)}
+.slide .snav button{font-size:1.6vw}
+.toast{position:fixed;left:50%;top:80px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;z-index:30;font-size:.8em;opacity:0;transition:opacity .3s}
+.toast.on{opacity:.95}
+#print{display:none}
+@media (max-width:820px){ .home{grid-template-columns:1fr} .teams{grid-template-columns:repeat(5,1fr)} nav.bottom .btn{min-width:130px} }
+@media print{
+  header.top,nav.bottom,main,.toast,.slide{display:none!important}
+  #print{display:block;font-size:11pt;line-height:1.55;color:#000}
+  #print h1{font-size:16pt;margin:0 0 6pt}
+  #print h2{font-size:12.5pt;margin:12pt 0 4pt;border-bottom:1px solid #999}
+  #print table{border-collapse:collapse;width:100%}
+  #print td,#print th{border:1px solid #999;padding:3pt 5pt;vertical-align:top;text-align:left}
+  #print .pc{font-size:9.5pt;line-height:1.35;border:1.5px solid #333;padding:6pt;margin-bottom:10pt;page-break-inside:avoid}
+  #print .pb{page-break-after:always}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="bar">
+    <div class="brand" id="brand">中井の街で試す｜目白研心 12月特別講義</div>
+    <div class="tools">
+      <span class="saved" id="saved"></span>
+      <button class="tbtn" id="bSize">文字：大きく</button>
+      <button class="tbtn" id="bMenu">もくじ</button>
+      <button class="tbtn" id="bHome">はじめに</button>
+    </div>
+  </div>
+  <div class="road" id="road"></div>
+</header>
+<main id="main"></main>
+<nav class="bottom" id="nav">
+  <button class="btn ghost" id="bPrev">← 戻る</button>
+  <div class="pos" id="pos"></div>
+  <button class="btn" id="bNext">次へ →</button>
+</nav>
+<div class="toast" id="toast"></div>
+<div id="print"></div>
+<input type="file" id="fileIn" accept=".json,application/json" style="display:none">
+
+<script>
+"use strict";
+const VER='v1.0（2026年11月）';
+const KEY='mejiro2026_wb', SNAPS='mejiro2026_wb_snaps';
+const TEAMS='ABCDEFGHI'.split('');
+const Q7=[
+ {id:'A2',name:'ひと',q:'生徒や先生は、どこから来ていますか。目白研心に来たいと思っている人はいますか'},
+ {id:'B3',name:'名前',q:'「目白研心といえば」で、学校の外の人が思いうかべるもの（行事・活動・コース）はありますか'},
+ {id:'C1',name:'よゆう',q:'放課後や休みの日に、使われていない教室・場所・時間・人の手はありますか。外の人が使ったことは'},
+ {id:'D1',name:'つながり',q:'学校が困ったときに、いっしょに動いてくれる学校の外の人や団体はいますか。何度もいっしょにやっている相手は'},
+ {id:'E2',name:'選ばれる理由',q:'生徒や家族は、なぜ目白研心を選んだと言っていましたか。本人から聞いたことはありますか'},
+ {id:'F2',name:'地元とのつながり',q:'新宿区や、中井の商店会・町会などと、どんなやり取りがありますか'},
+ {id:'G1',name:'いっしょに始めたこと',q:'学校が、地域や会社といっしょに始めたことはありますか。今も続いているものは'}
+];
+const SYM=[
+ {v:'◎',t:'外の人にも役立つ強み',d:'学校の外の人が何度も頼りにしている。学校の毎日を止めなくても分けられる'},
+ {v:'○',t:'足りている',d:'困ってはいない。でも外の人に分けるほどではない'},
+ {v:'△',t:'足りない',d:'それがなくて困ることが、本当に起きていて、今も続いている（他の学校と比べない）'},
+ {v:'？',t:'分からない',d:'知っていることがなくて決められない。これも正しい答え'}
+];
+const WHO=[{v:'本人',t:'困っている本人'},{v:'同じ立場',t:'本人と同じ立場の人'},{v:'お店・団体',t:'お店・団体・区役所などの人'},{v:'練習',t:'練習（家族・友だち・学校の人）'}];
+const RX=[{v:'言った',t:'言った',d:'「いいね」と言ってくれた'},{v:'動いた',t:'動いた',d:'時間をとって話してくれた・見せてくれた・人を紹介してくれた'},{v:'約束した',t:'約束した',d:'「いつ、何をいっしょに試すか」を決めた'}];
+const STAR=['合っていた','外れた','まだ分からない'];
+const COND=[
+ '使う学校の強み（◎）を、外の誰がそう言った・そうしたかと一緒に言える',
+ '困っている人を「場面」で言える。その人がいま何でしのいでいるかを知っている',
+ '組む相手と、その相手に増えるものが、相手の言葉で書かれている',
+ '聞き取りで、本人か同じ立場の人から「いいね」より強い反応（動いた・約束した）を1つ以上得た。得られなかったら、その理由',
+ 'いちばん確かでないこと（★）とやめる条件があり、聞いた結果どうなったかが書かれている',
+ '始めるための3つの問いに答えられ、最初の一歩が、半年以内に、高校生と学校の手持ちで試せる'
+];
+
+/* ---------- state ---------- */
+function blank(){return {ver:1,mode:null,ui:{small:false},pos:{solo:0,team:0},
+ solo:{name:'',wish:'',wishWhy:'',j:{},ask:{now:'',q:'',guess:''},trouble:'',idea:'',reply:{},rt:'A',refl:{r1:'',r2:'',r3:''}},
+ team:{id:'',wish:'',wishWhy:'',tally:{},treas:[{q:'',w:''},{q:'',w:''}],tq:'',troubles:['','',''],cell:null,cellIdea:'',far:'',ai:{ans:'',done:false},
+  h:{who:'',scene:'',cope:'',give:'',p1:'',p2:'',star:'',stop:''},prep:{first:'',ask:'',not:''},recs:[],cur:-1,
+  star:'',rev:[{c:'',n:''},{c:'',n:''},{c:'',n:''}],cond:[null,null,null,null,null,null],condWhy:'',judge:'',judgeWhy:'',title:'',oneline:'',
+  partner:'',pGain:'',sGain:'',five:{to:'',what:'',how:'',with:'',keep:''},three:{who:'',start:'',newv:''},first:''}};}
+let S=load();
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&x.ver===1)return deep(blank(),x);}catch(e){}return blank();}
+function deep(a,b){for(const k in b){if(b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])&&a[k]&&typeof a[k]==='object'&&!Array.isArray(a[k]))deep(a[k],b[k]);else a[k]=b[k];}return a;}
+let saveT=null,lastSnap=0;
+function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));const now=Date.now();
+ if(now-lastSnap>180000){lastSnap=now;const sn=JSON.parse(localStorage.getItem(SNAPS)||'[]');sn.unshift({t:now,d:JSON.stringify(S)});localStorage.setItem(SNAPS,JSON.stringify(sn.slice(0,6)));}
+ $('saved').textContent='この端末に保存 ✓ '+hm(new Date());}catch(e){$('saved').textContent='保存できません。控えをファイルに保存してください';$('saved').className='saved warn';}},250);}
+function flush(){clearTimeout(saveT);try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+addEventListener('pagehide',flush);document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flush();});
+function hm(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+function ymd(){const d=new Date();return d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+hm(d).replace(':','');}
+function get(p){return p.split('.').reduce((o,k)=>o==null?o:o[k],S);}
+function set(p,v){const ks=p.split('.');let o=S;for(let i=0;i<ks.length-1;i++)o=o[ks[i]];o[ks[ks.length-1]]=v;save();}
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
+
+/* ---------- helpers ---------- */
+function fld(path,label,ph,rows){const v=get(path)||'';return `${label?`<label class="f">${label}</label>`:''}<textarea data-p="${path}" rows="${rows||2}" placeholder="${esc(ph||'')}">${esc(v)}</textarea>`;}
+function chips(path,opts,cls){const v=get(path);return `<div class="chips ${cls||''}">${opts.map(o=>`<button class="chip ${v===o.v?'on':''}" data-c="${path}" data-v="${esc(o.v)}"><b>${esc(o.t||o.v)}</b>${o.d?`<span>${esc(o.d)}</span>`:''}</button>`).join('')}</div>`;}
+function help(t){return t?`<details class="help"><summary>？ くわしく</summary><div>${t}</div></details>`:'';}
+function tallyOf(i){return S.team.tally[Q7[i].id]||{n:{'◎':0,'○':0,'△':0,'？':0},j:'',who:''};}
+function tallyStat(t){const n=t.n,tot=n['◎']+n['○']+n['△']+n['？'],judged=tot-n['？'];const mx=Math.max(n['◎'],n['○'],n['△']);
+ return {tot,judged,rate:tot?Math.round(judged*100/tot):null,agree:judged?Math.round(mx*100/judged):null};}
+const RXRANK={'言った':1,'動いた':2,'約束した':3};
+function recStats(){const r=S.team.recs;const m={};WHO.forEach(w=>{m[w.v]={'言った':0,'動いた':0,'約束した':0};});
+ r.forEach(x=>{if(x.who&&x.rx)m[x.who][x.rx]++;});
+ let best=null;r.filter(x=>x.who&&x.who!=='練習'&&x.rx).forEach(x=>{if(!best||RXRANK[x.rx]>RXRANK[best.rx])best=x;});
+ const strong=r.filter(x=>(x.who==='本人'||x.who==='同じ立場')&&(x.rx==='動いた'||x.rx==='約束した')).length;
+ const stars={};STAR.forEach(s=>stars[s]=r.filter(x=>x.star===s).length);
+ return {m,best,strong,n:r.filter(x=>x.who&&x.who!=='練習').length,prac:r.filter(x=>x.who==='練習').length,stars};}
+function recTable(){const st=recStats();return `<table class="t"><tr><th class="l">相手</th>${RX.map(x=>`<th>${x.t}</th>`).join('')}</tr>${WHO.map(w=>`<tr><td class="l">${w.t}</td>${RX.map(x=>`<td>${st.m[w.v][x.v]}</td>`).join('')}</tr>`).join('')}</table>`;}
+function treasText(){return S.team.treas.filter(t=>t.w).map(t=>t.w+(t.q?`（${t.q}）`:'')).join('／');}
+function chosen(){const c=S.team.cell;if(!c)return null;const t=S.team.treas[c[0]],p=S.team.troubles[c[1]];return {t:t?t.w:'',p:p||''};}
+function aiPrompt(){const c=chosen();return `東京都新宿区の中井駅のまわりで、次の「困りごと」に、目白研心高校の次の「強み」を使って、高校生が半年以内に小さく試せることを1つ提案してください。誰に、何を、どうやって届けるかを3行で書いてください。\n困りごと：${c&&c.p?c.p:'（総当たりで選んだ困りごと）'}\n目白研心高校の強み：${c&&c.t?c.t:'（宝のひと言）'}`;}
+
+/* ---------- screens ---------- */
+const STAGES={team:['見つける','つなぐ','確かめる','作り直す','形にする'],solo:['事前課題','2日目の返事','振り返り']};
+const STAGE_SUB={team:['12/14 午前','12/14 午前','12/14 午後〜12/15朝','12/15 午前','12/15 午後'],solo:['12/7の週','12/15 発表のとき','12/15 最後']};
+const SOLO=[
+ {st:0,time:'12/7の週・30分・AIは使わない',r:()=>`<h1 class="q">あなたの名前を書いてください</h1><p class="lead">先生に出すPDFに入ります。名前は数えるときには使いません。</p>${fld('solo.name','','例：目白 花子',1)}<div class="card soft">分からないときは「？」でかまいません。「？」はまちがいではありません。12/14は「何が分からなかったか」から始めます。</div>`},
+ {st:0,time:'事前課題 1',r:()=>`<h1 class="q">3〜5年後、目白研心はどんな学校になっていてほしい？</h1>${fld('solo.wish','なっていてほしい姿（1〜2行）','例：地域の人が気軽に出入りして、いっしょに何かを試している学校',2)}${fld('solo.wishWhy','なぜ？（1行）','',2)}`},
+ ...Q7.map((q,i)=>({st:0,time:`事前課題 2　学校の力（${i+1}／7）`,r:()=>soloJ(i)})),
+ {st:0,time:'事前課題 3',r:()=>`<h1 class="q">自分の問いを、中井で人に聞いて確かめられる問いに言いかえよう</h1>${help('例：「時間帯で大江戸線の混み方はちがうのか」→「中井駅を使う人は、どの時間帯に、何に困っているか」<br>例：「なぜコンビニは便利なのか」→「中井の商店街のお店は、コンビニとどうちがう役わりをしているか」')}${fld('solo.ask.now','いまの問い','',2)}${fld('solo.ask.q','中井で確かめられる問い','',2)}${fld('solo.ask.guess','答えの予想（1行）','',1)}`},
+ {st:0,time:'事前課題 4',r:()=>`<h1 class="q">中井で困っていそうな人と場面を1つ</h1><p class="lead">「高れい化」のような大きな言葉ではなく、だれが・いつ・どこで・何に困っていて、今どうやってしのいでいるか。</p>${fld('solo.trouble','','例：夕方、中井駅の階段の前で、ベビーカーを押した人が…',3)}`},
+ {st:0,time:'事前課題 5',r:()=>`<h1 class="q">今思いつく案を1行で</h1><p class="lead">◎か○にした学校の力と、4の困りごとを組み合わせて。調べずに。</p>${fld('solo.idea','','',2)}`},
+ {st:0,time:'事前課題を出す',r:()=>outSolo('pre')},
+ {st:1,time:'12/15 発表のとき（ひとり）',r:()=>soloReply()},
+ {st:2,time:'12/15 最後（ひとり）',r:()=>`<h1 class="q">振り返り（3つ）</h1>${fld('solo.refl.r1','1. 何が「思い込み」だった？','',2)}${fld('solo.refl.r2','2. いちばん効いた聞き方は？','',2)}${fld('solo.refl.r3','3. 3学期にどう使う？','',2)}`},
+ {st:2,time:'返事と振り返りを出す',r:()=>outSolo('post')}
+];
+function soloJ(i){const q=Q7[i],p='solo.j.'+q.id;if(!S.solo.j[q.id])S.solo.j[q.id]={v:'',why:'',who:''};const v=(S.solo.j[q.id]||{});return `<p class="note">${q.id}　目白研心を、ひとつの会社のように見て答えます</p><h1 class="q">${esc(q.name)}：${esc(q.q)}</h1>
+ <div class="chips big4">${SYM.map(s=>`<button class="chip ${v.v===s.v?'on':''}" data-j="${q.id}" data-v="${s.v}"><b>${s.v}</b><span>${s.t}</span></button>`).join('')}</div>
+ ${help(SYM.map(s=>`<b>${s.v} ${s.t}</b>：${s.d}`).join('<br>')+'<br>◎を選んだときは「外の誰が、そう言った・そうした」かを書きます。書けないときは○にします。'+(q.id==='E2'?'<br>本人から聞いたことがなく、想像で書いたときは「想像」と書いてください。':''))}
+ ${fld(p+'.why','そう思った理由（見たこと・聞いたこと）','',2)}${v.v==='◎'?fld(p+'.who','◎のとき：外の誰が、そう言った・そうした？','例：商店会の方が「文化祭で毎年手伝ってもらっている」と言っていた',2):''}`;}
+function soloReply(){const t=S.solo.rt;if(!S.solo.reply[t])S.solo.reply[t]={v:'',why:''};const r=S.solo.reply[t]||{};const opts=[{v:'受け取りたい',t:'受け取りたい'},{v:'条件つき',t:'条件つきで受け取りたい'},{v:'受け取らない',t:'受け取らない'}];
+ return `<h1 class="q">あなたが相手だったら、この案を受け取りたい？</h1><p class="lead">発表が終わるたびに、そのチームを選んで書きます（自分のチームはとばす）。</p>
+ <div class="teams">${TEAMS.map(x=>`<button class="chip ${x===t?'on':''}" data-rt="${x}">${x}${S.solo.reply[x]&&S.solo.reply[x].v?' ✓':''}</button>`).join('')}</div>
+ <div class="card"><b>チーム${t}</b>${chips('solo.reply.'+t+'.v',opts,'big4')}${fld('solo.reply.'+t+'.why','理由（1行）','',2)}</div>`;}
+function outSolo(kind){const nm=S.solo.name||'（名前）';return `<h1 class="q">${kind==='pre'?'事前課題':'返事と振り返り'}を出す</h1>
+ <div class="card"><b>1. PDFにして先生に出す</b><p class="note">「PDFにする」→ 共有 →「ファイルに保存」か、先生の指示どおりに出します。</p><button class="btn" data-act="print-${kind}">PDFにする</button></div>
+ <div class="card"><b>2. ファイルも一緒に出す</b><p class="note">あとで数えるために使います。名前は数えるときには使いません。</p><button class="btn ghost" data-act="save-${kind}">ファイルに保存</button></div>
+ <p class="note">名前：${esc(nm)}　書いたことは名前をかくして数え、この授業のやり方を良くするためにだけ使います。成績には関係しません。使ってほしくないときは先生に伝えてください。</p>`;}
+
+const TEAM=[
+ {st:0,time:'12/14 10:00〜10:35',r:()=>`<h1 class="q">チームを選んでください</h1><p class="lead">このiPadを、2日間チームの記録係が使います。入力はこのiPadの中だけに保存されます。</p><div class="teams">${TEAMS.map(x=>`<button class="chip ${S.team.id===x?'on':''}" data-c="team.id" data-v="${x}"><b>${x}</b></button>`).join('')}</div>
+ <div class="card soft">約束：AIの答えはそのまま使わない／2人以上で動く／困ったら大人に言う。<br>相手が言ったことと、実際にしていることは違うことがある。それを確かめに行く2日間です。</div>`},
+ {st:0,time:'12/14 10:35〜11:00',r:()=>`<h1 class="q">ありたい姿を読み合って、チームのひと言に</h1><p class="lead">事前課題の1を2〜3人で読み合います。</p>${fld('team.wish','3〜5年後、目白研心はどんな学校になっていてほしい？（チームのひと言）','',2)}${fld('team.wishWhy','なぜ？','',2)}`},
+ ...Q7.map((q,i)=>({st:0,time:`12/14 10:35〜11:00　7問の持ち寄り（${i+1}／7）`,r:()=>teamTally(i)})),
+ {st:0,time:'12/14 10:35〜11:00',r:()=>teamTallySum()},
+ {st:0,time:'12/14 11:00〜11:25',r:()=>`<h1 class="q">学校の「宝のひと言」を1〜2つ</h1><p class="lead">◎で「外の誰が言った・したか」があるものを、具体的なひと言に。問いの名前ではなく「放課後の理科室と、実験を教えられる生徒」のように。</p>
+ ${[0,1].map(k=>`<div class="card"><b>宝 ${k+1}</b>${chips('team.treas.'+k+'.q',Q7.map(q=>({v:q.name,t:q.name})))}${fld('team.treas.'+k+'.w','ひと言','',2)}</div>`).join('')}`},
+ {st:1,time:'12/14 11:00〜11:25',r:()=>`<h1 class="q">中井の困りごとを「場面」で3つまで</h1><p class="lead">一人ずつの事前課題4から。だれが・いつ・どこで・何に困っているか。</p>${fld('team.tq','チームで確かめたい問い（事前課題3から1つ）','',2)}${[0,1,2].map(k=>fld('team.troubles.'+k,'困りごと '+(k+1),'',2)).join('')}`},
+ {st:1,time:'12/14 11:00〜11:25',r:()=>teamGrid()},
+ {st:1,time:'12/14 11:25〜11:35',r:()=>teamAI()},
+ {st:1,time:'12/14 11:35〜12:15　仮説シート（1／4）',r:()=>`<h1 class="q">誰が、どんな場面で困っている？</h1>${fld('team.h.who','誰が（名前か、特定できる立場で）','「高齢者」「観光客」は相手ではない',2)}${fld('team.h.scene','どんな場面で困る？（いつ・どこで・何に）','',2)}`},
+ {st:1,time:'12/14 11:35〜12:15　仮説シート（2／4）',r:()=>`<h1 class="q">いま何でしのいでいる？ 何を渡す？</h1>${fld('team.h.cope','いま何でしのいでいる？（分からなければ「分からない」）','',2)}${fld('team.h.give','わたしたちが渡すもの（もの・場・しくみ・時間）','「アプリ」だけで終わらせない',2)}`},
+ {st:1,time:'12/14 11:35〜12:15　仮説シート（3／4）',r:()=>`<h1 class="q">組む相手を2つ</h1>${fld('team.h.p1','① 学校の強みを渡す相手','',2)}${fld('team.h.p2','② 足りないところを助けてくれる相手','',2)}`},
+ {st:1,time:'12/14 11:35〜12:15　仮説シート（4／4）',r:()=>`<h1 class="q">★いちばん確かでないこと と やめる条件</h1>${fld('team.h.star','★ これが外れたら案が成り立たない、いちばん確かでないこと','聞き取りの最初に確かめる',2)}${fld('team.h.stop','やめる条件（聞く前に決める）','例：「いいね」だけで、動いた人が1人もいなければ やめる',2)}${saveHint('つなぐ')}`},
+ {st:2,time:'12/14 12:50〜13:45',r:()=>`<h1 class="q">聞き取りの準備</h1>${fld('team.prep.first','最初に話を聞く相手（お店の方・駅や商店街を使う人など）','',2)}${fld('team.prep.ask','最初の質問（★を確かめる）','「いいね」で終わらせない：いつ・何回・今は何でしのいでいるか',2)}
+ <div class="card soft"><b>安全の約束</b>：2人以上で動く／1店5分まで／混んでいるお店には入らない／写真・録音はお店の許可を取ってから／お金・健康・家族のことは聞かない／「これは内緒で」と言われたら、そこでやめる</div>
+ <div class="card"><b>記録カード（話を聞いた人1人に1枚）</b><p class="note">中井にはiPadを持ち出さず、紙のカードに書きます。12/15の朝にこのiPadに入れます。</p><button class="btn ghost" data-act="print-cards">記録カードを印刷する</button></div>`},
+ {st:2,time:'12/15 9:00〜9:20',r:()=>teamRecs()},
+ {st:2,time:'12/15 9:20〜9:50',r:()=>`<h1 class="q">相手の種類 × 反応 で数える</h1>${recTable()}${recSumLine()}<p class="note">家族・友だち・学校の人は「練習」。強い反応には数えません。</p>`},
+ {st:3,time:'12/15 9:20〜9:50',r:()=>{const st=recStats();return `<h1 class="q">★いちばん確かでないことは、どうだった？</h1><div class="card soft">★：${esc(S.team.h.star)||'（未記入）'}<br>記録では：合っていた ${st.stars['合っていた']}件／外れた ${st.stars['外れた']}件／まだ分からない ${st.stars['まだ分からない']}件</div>${chips('team.star',STAR.map(s=>({v:s,t:s})),'big4')}`;}},
+ {st:3,time:'12/15 9:50〜10:30',r:()=>teamRev()},
+ {st:3,time:'12/15 10:40〜11:20',r:()=>teamCond()},
+ {st:3,time:'12/15 10:40〜11:20',r:()=>`<h1 class="q">続ける？ 直す？ やめる？</h1>${chips('team.judge',[{v:'続ける',t:'続ける',d:'★が合っていて、動いた・約束したがある'},{v:'直す',t:'直す',d:'★が外れた、または強い反応がない'},{v:'やめる',t:'やめる',d:'やめる条件に当たった（やめるのも成果）'}],'big4')}${fld('team.judgeWhy','理由','',2)}${fld('team.title','案の名前','',1)}${fld('team.oneline','ひと言で言うと','',2)}${saveHint('作り直す')}`},
+ {st:4,time:'12/15 11:20〜12:00',r:()=>`<h1 class="q">誰と組む？ その相手に増えるものは？</h1>${fld('team.partner','組む相手（お店・学校・区など）','',2)}${fld('team.pGain','その相手に増えるもの（相手の言葉で）','',2)}${fld('team.sGain','学校に増えるもの（1行）','',2)}`},
+ {st:4,time:'12/15 12:45〜13:15',r:()=>`<h1 class="q">小さな事業の形（5マス）</h1><div class="row"><div>${fld('team.five.to','誰に','',2)}</div><div>${fld('team.five.what','何を','',2)}</div><div>${fld('team.five.how','どう届ける','',2)}</div></div><div class="row"><div>${fld('team.five.with','誰と','',2)}</div><div>${fld('team.five.keep','どう続けるか','',2)}</div></div>`},
+ {st:4,time:'12/15 12:45〜13:15',r:()=>`<h1 class="q">始めるための3つの問い</h1>${fld('team.three.who','誰が受け取る？','',2)}${fld('team.three.start','何から始める？','',2)}${fld('team.three.newv','何が新しく生まれる？','',2)}${fld('team.first','最初の一歩（半年以内に、高校生と学校の手持ちで）','',2)}`},
+ {st:4,time:'12/15 13:15〜14:00',r:()=>teamSlidesPrev()},
+ {st:4,time:'12/15 14:00〜14:10',r:()=>`<h1 class="q">提出（記録係）</h1><div class="card"><b>1. ファイルに保存して先生に出す</b><p class="note">集計に使います。名前は入っていません。</p><button class="btn" data-act="save-team">ファイルに保存</button></div><div class="card"><b>2. PDFにする（チームの控え）</b><button class="btn ghost" data-act="print-team">PDFにする</button></div><div class="card soft">発表は「発表を始める」から全画面で。4分＋質疑3分。</div><button class="btn" data-act="slides">発表を始める（全画面）</button>`}
+];
+function saveHint(stage){return `<div class="card soft">「${stage}」が終わりました。念のため控えを保存しておきましょう。<button class="btn small ghost" data-act="backup">控えをファイルに保存</button></div>`;}
+function teamTally(i){const q=Q7[i];const t=tallyOf(i);const s=tallyStat(t);
+ return `<p class="note">${q.id}　一人ずつの判定を持ち寄って、人数を押します（名前は記録しません）</p><h1 class="q">${esc(q.name)}：${esc(q.q)}</h1>
+ <div class="card">${SYM.map(x=>`<div class="cnt"><div><span class="sym">${x.v}</span> ${x.t}</div><button data-tal="${q.id}" data-s="${x.v}" data-d="-1" aria-label="${x.t}を1減らす">−</button><div class="n">${t.n[x.v]}</div><button data-tal="${q.id}" data-s="${x.v}" data-d="1" aria-label="${x.t}を1増やす">＋</button></div>`).join('')}
+ <div class="stat"><div>判定できた割合 ${s.rate==null?'—':s.rate+'%'}（？以外 ${s.judged}／${s.tot}人）</div><div>いちばん多い答えの割合 ${s.agree==null?'—':s.agree+'%'}</div></div></div>
+ <label class="f">チームの判定（割れたら話して決める。決まらなければ「？」）</label><div class="chips big4">${SYM.map(x=>`<button class="chip ${t.j===x.v?'on':''}" data-tj="${q.id}" data-v="${x.v}"><b>${x.v}</b><span>${x.t}</span></button>`).join('')}</div>
+ ${t.j==='◎'?`<label class="f">◎：外の誰が、そう言った・そうした？</label><textarea data-tw="${q.id}" rows="2">${esc(t.who)}</textarea>`:''}`;}
+function teamTallySum(){return `<h1 class="q">7問のまとめ</h1><p class="lead">「？」が多い問い、答えが割れた問いを話しましょう。</p><table class="t"><tr><th class="l">問い</th><th>◎</th><th>○</th><th>△</th><th>？</th><th>判定できた</th><th>チーム</th></tr>${Q7.map((q,i)=>{const t=tallyOf(i),s=tallyStat(t);return `<tr><td class="l">${q.name}</td>${SYM.map(x=>`<td>${t.n[x.v]}</td>`).join('')}<td>${s.rate==null?'—':s.rate+'%'}</td><td><b>${t.j||''}</b></td></tr>`;}).join('')}</table>${saveHint('見つける')}`;}
+function teamGrid(){const tr=S.team.treas.map((t,i)=>({i,w:t.w})).filter(x=>x.w);const pb=S.team.troubles.map((p,j)=>({j,p})).filter(x=>x.p);
+ if(!tr.length||!pb.length)return `<h1 class="q">総当たり：宝 × 困りごと</h1><div class="card soft warn">前の画面で「宝のひと言」と「困りごと」を書くと、ここに組み合わせが並びます。</div>`;
+ const c=S.team.cell;return `<h1 class="q">総当たり：宝 × 困りごと → 1つ選ぶ</h1><p class="lead">全部のマスを見てから選ぶ。ふだん組み合わせない「遠いマス」も見る。</p>
+ <div class="grid" style="grid-template-columns:200px repeat(${pb.length},1fr)"><div></div>${pb.map(x=>`<div class="gh">困りごと ${x.j+1}<br><span class="note">${esc(x.p)}</span></div>`).join('')}
+ ${tr.map(t=>`<div class="gh">宝 ${t.i+1}<br><span class="note">${esc(t.w)}</span></div>${pb.map(x=>`<button class="cell ${c&&c[0]===t.i&&c[1]===x.j?'on':''}" data-cell="${t.i},${x.j}">${c&&c[0]===t.i&&c[1]===x.j?'<b>これにする</b>':'<small>タップで選ぶ</small>'}</button>`).join('')}`).join('')}</div>
+ ${c?fld('team.cellIdea','選んだマスの案を1行で（誰に・何を）','',2):''}${fld('team.far','「遠いマス」で気になったもの（あれば）','',1)}`;}
+function teamAI(){const a=S.team.ai;return `<h1 class="q">AIだけの案を記録する（1回だけ）</h1><p class="lead">決まった文をAI（Gemini）に1回だけ聞き、答えをそのまま貼ります。あとから書き換えません。</p>
+ <div class="card soft" style="white-space:pre-wrap">${esc(aiPrompt())}</div><button class="btn ghost" data-act="copy-ai">この文をコピー</button>
+ ${fld('team.ai.ans','AIの答え（そのまま貼る）','',5)}${chips('team.ai.done',[{v:true,t:'1回だけ聞いて、そのまま貼った'}])}
+ ${help('AIの答えは「聞いた事実」ではありません。確かめる前の候補です。最後の発表で、AIだけの案とチームの最後の案を並べます。AIが使えないときは、講師の画面で代表して聞きます。')}`;}
+function teamRecs(){const r=S.team.recs,cur=S.team.cur;
+ if(cur>=0&&r[cur]){const x=r[cur];const p='team.recs.'+cur;return `<h1 class="q">記録カード ${cur+1} を入れる</h1>
+  <label class="f">話を聞いた人は？</label>${chips(p+'.who',WHO)}
+  <label class="f">相手の反応は？</label>${chips(p+'.rx',RX,'big4')}
+  <div class="row"><div>${fld(p+'.said','相手が言ったこと','',2)}</div><div>${fld(p+'.does','相手が本当にしていること','',2)}</div></div>
+  ${fld(p+'.cope','今どうやってしのいでいるか','',2)}<label class="f">★はどうだった？</label>${chips(p+'.star',STAR.map(s=>({v:s,t:s})))}
+  <div class="row"><div>${fld(p+'.worry','相手が気にしていたこと（話してくれたときだけ）','',2)}</div><div>${fld(p+'.diff','思っていたこととちがったこと','',2)}</div></div>
+  <button class="btn" data-act="rec-done">このカードを入れ終わった</button> <button class="btn ghost small" data-act="rec-del">このカードを消す</button>`;}
+ return `<h1 class="q">記録カードを入れる</h1><p class="lead">昨日のカードを1枚ずつ。いま ${r.length} 枚。</p><div class="list">${r.map((x,i)=>`<div class="item"><div><b>${i+1}.</b> ${esc(x.who||'？')}／${esc(x.rx||'？')}　<span class="note">${esc((x.said||'').slice(0,30))}</span></div><button class="btn small ghost" data-rec="${i}">開く</button></div>`).join('')}</div><button class="btn" data-act="rec-add">＋ カードを1枚入れる</button>`;}
+function recSumLine(){const st=recStats();return `<div class="stat"><div>話を聞いた人 ${st.n}人（練習 ${st.prac}人は別）</div><div>本人・同じ立場から「動いた」以上 ${st.strong}件</div><div>いちばん強い反応：${st.best?esc(st.best.rx)+'（'+esc(st.best.who)+'）':'まだない'}</div></div>`;}
+function teamRev(){const H=S.team.h;const prev=[H.who+(H.scene?'：'+H.scene:''),H.give,H.p1];const rows=['困りごと（誰が・どんな場面）','渡すもの','決める人・組む相手'];
+ return `<h1 class="q">見直し表：直す？ そのまま？ 新しく借りる？</h1><p class="lead">前の案は消さずに残します。</p>${rows.map((rw,k)=>`<div class="card"><b>${rw}</b><p class="note">前の案：${esc(prev[k])||'（未記入）'}</p>${chips('team.rev.'+k+'.c',[{v:'直す',t:'直す'},{v:'そのまま',t:'そのまま'},{v:'新しく借りる',t:'新しく借りる'}])}${get('team.rev.'+k+'.c')&&get('team.rev.'+k+'.c')!=='そのまま'?fld('team.rev.'+k+'.n','新しい案','',2):''}</div>`).join('')}`;}
+function teamCond(){return `<h1 class="q">依頼主の6つの条件を点検</h1><p class="lead">依頼主：中井のまちで新しいことを試したい人（授業のための想定）。そろわなくても大丈夫。足りないものを書いて持っていく。</p>
+ ${COND.map((c,k)=>`<div class="card" style="display:flex;gap:12px;align-items:center;justify-content:space-between"><div><b>${k+1}.</b> ${c}</div><div class="chips" style="flex-shrink:0">${[{v:true,t:'そろった'},{v:false,t:'足りない'}].map(o=>`<button class="chip ${S.team.cond[k]===o.v?'on':''}" data-cond="${k}" data-v="${o.v}">${o.t}</button>`).join('')}</div></div>`).join('')}
+ <div class="stat"><div>そろった ${S.team.cond.filter(x=>x===true).length}／6</div></div>${fld('team.condWhy','足りないものと、その理由','',2)}`;}
+
+/* ---------- slides ---------- */
+function slides(){const T=S.team,H=T.h,st=recStats();const rev=T.rev.map((r,k)=>({k:['困りごと','渡すもの','決める人・組む相手'][k],c:r.c,n:r.n}));
+ return [
+ {h:'問い',t:esc(T.title||'（案の名前）'),b:`<p><b>チームの問い：</b>${esc(T.tq)}</p><p><b>ありたい姿：</b>${esc(T.wish)}</p><p><b>使う学校の宝：</b>${esc(treasText())}</p>`},
+ {h:'仮説',t:'誰が、どんな場面で困っている？',b:`<p><b>誰が：</b>${esc(H.who)}</p><p><b>場面：</b>${esc(H.scene)}</p><p><b>今のしのぎ方：</b>${esc(H.cope)}</p><p><b>渡すもの：</b>${esc(H.give)}</p><p><b>★いちばん確かでないこと：</b>${esc(H.star)}</p>`},
+ {h:'聞いたこと',t:`話を聞いた人 ${st.n}人（練習 ${st.prac}人）`,b:`${recTable()}<p><b>いちばん強い反応：</b>${st.best?esc(st.best.rx)+'（'+esc(st.best.who)+'）「'+esc(st.best.said||st.best.does||'')+'」':'まだない'}</p><p><b>★は：</b>${esc(T.star)}</p>`},
+ {h:'直したこと',t:`判断：${esc(T.judge||'—')}`,b:`<table class="t"><tr><th class="l">項目</th><th>どうした</th><th class="l">新しい案</th></tr>${rev.map(r=>`<tr><td class="l">${r.k}</td><td>${esc(r.c)}</td><td class="l">${esc(r.n)}</td></tr>`).join('')}</table><p><b>理由：</b>${esc(T.judgeWhy)}</p><p class="note">AIだけの案：${esc((T.ai.ans||'').slice(0,90))}${(T.ai.ans||'').length>90?'…':''}</p>`},
+ {h:'提案',t:esc(T.oneline||T.title||'提案'),b:`<p><b>誰が受け取る？</b>${esc(T.three.who)}</p><p><b>何から始める？</b>${esc(T.three.start)}</p><p><b>何が新しく生まれる？</b>${esc(T.three.newv)}</p><p><b>組む相手と、増えるもの：</b>${esc(T.partner)}／${esc(T.pGain)}</p><p><b>やめる条件：</b>${esc(H.stop)}　<b>条件：</b>${T.cond.filter(x=>x===true).length}／6</p>`}
+ ];}
+function teamSlidesPrev(){return `<h1 class="q">発表の5枚（入力から自動でできます）</h1><p class="lead">言いたいことが足りないところは、その画面に戻って1行ずつ直します。</p>${slides().map((s,i)=>`<div class="card"><span class="time">${i+1}. ${s.h}</span><div style="font-weight:800;font-size:1.1em;margin:6px 0">${s.t}</div><div class="note">${s.b}</div></div>`).join('')}<button class="btn" data-act="slides">発表を始める（全画面）</button>`;}
+let SL=null;
+function openSlides(){SL=0;drawSlide();}
+function drawSlide(){let d=document.querySelector('.slide');if(SL==null){if(d)d.remove();return;}if(!d){d=document.createElement('div');d.className='slide';document.body.appendChild(d);}
+ const ss=slides(),s=ss[SL];d.innerHTML=`<div class="sh">チーム${esc(S.team.id)}　${SL+1}／${ss.length}　${s.h}</div><h2>${s.t}</h2><div class="sb">${s.b}</div><div class="snav"><button class="btn ghost" data-sl="-1">← 前</button><span>4分＋質疑3分</span><button class="btn ghost" data-sl="x">閉じる</button><button class="btn" data-sl="1">次 →</button></div>`;}
+
+/* ---------- print ---------- */
+function printSolo(kind){const s=S.solo;let h=`<h1>12月特別講義　${kind==='pre'?'事前課題':'返事と振り返り'}</h1><p>名前：${esc(s.name)}　作成：${new Date().toLocaleString('ja-JP')}</p>`;
+ if(kind==='pre'){h+=`<h2>1. 3〜5年後、目白研心はどんな学校になっていてほしい？</h2><p>${esc(s.wish)}</p><p>なぜ？ ${esc(s.wishWhy)}</p><h2>2. 学校の力（7つの質問）</h2><table><tr><th>質問</th><th>答え</th><th>理由</th><th>◎のとき：外の誰が</th></tr>${Q7.map(q=>{const j=s.j[q.id]||{};return `<tr><td>${q.name}</td><td>${esc(j.v)}</td><td>${esc(j.why)}</td><td>${esc(j.who)}</td></tr>`;}).join('')}</table>
+ <h2>3. 中井で確かめられる問い</h2><p>いまの問い：${esc(s.ask.now)}</p><p>確かめられる問い：${esc(s.ask.q)}</p><p>答えの予想：${esc(s.ask.guess)}</p><h2>4. 困っていそうな人と場面</h2><p>${esc(s.trouble)}</p><h2>5. 今思いつく案</h2><p>${esc(s.idea)}</p>`;}
+ else{h+=`<h2>他チームへの返事（あなたが相手だったら、受け取りたいか）</h2><table><tr><th>チーム</th><th>返事</th><th>理由</th></tr>${TEAMS.map(t=>{const r=s.reply[t]||{};return `<tr><td>${t}</td><td>${esc(r.v)}</td><td>${esc(r.why)}</td></tr>`;}).join('')}</table><h2>振り返り</h2><p>1. 何が思い込みだった？ ${esc(s.refl.r1)}</p><p>2. いちばん効いた聞き方 ${esc(s.refl.r2)}</p><p>3. 3学期にどう使う？ ${esc(s.refl.r3)}</p>`;}
+ h+=`<p style="font-size:9pt">書いたことは名前をかくして数え、この授業のやり方を良くするためにだけ使います。成績には関係しません。</p>`;doPrint(h);}
+function printTeam(){const T=S.team;let h=`<h1>チーム${esc(T.id)}　2日間の記録（控え）</h1><p>作成：${new Date().toLocaleString('ja-JP')}</p>`;
+ slides().forEach((s,i)=>{h+=`<h2>${i+1}. ${s.h}：${s.t}</h2>${s.b}`;});
+ h+=`<h2>7問（人数）</h2><table><tr><th>問い</th><th>◎</th><th>○</th><th>△</th><th>？</th><th>チーム</th></tr>${Q7.map((q,i)=>{const t=tallyOf(i);return `<tr><td>${q.name}</td>${SYM.map(x=>`<td>${t.n[x.v]}</td>`).join('')}<td>${esc(t.j)}</td></tr>`;}).join('')}</table>
+ <h2>6つの条件</h2><table>${COND.map((c,k)=>`<tr><td>${k+1}</td><td>${c}</td><td>${T.cond[k]===true?'そろった':T.cond[k]===false?'足りない':''}</td></tr>`).join('')}</table><p>${esc(T.condWhy)}</p><h2>AIだけの案</h2><p style="white-space:pre-wrap">${esc(T.ai.ans)}</p>`;doPrint(h);}
+function printCards(){let h='';for(let i=0;i<4;i++)h+=(i===2?'<div class="pb"></div>':'')+`<div class="pc"><b>聞き取りの記録カード</b>　チーム（${esc(S.team.id)||'　'}）　書いた人（　　　　）<br>話を聞く前に：「学校の授業で、中井のまちについて考えています。5分ほどお話を聞かせてください」。名前は聞かない。ことわられたら、お礼を言って終わる。
+ <table><tr><th style="width:28%">いつ・どこで</th><td></td></tr><tr><th>どんな人か（名前は書かない）</th><td></td></tr><tr><th>話を聞いた人（1つに○）</th><td>困っている本人 ／ 本人と同じ立場の人 ／ お店・団体・区役所などの人 ／ 練習（家族・友だち・学校の人）</td></tr>
+ <tr><th>相手の反応（1つに○）</th><td>言った（「いいね」）／ 動いた（時間をとって話した・見せた・人を紹介した）／ 約束した（いつ、何をいっしょに試すかを決めた）</td></tr><tr><th>相手が言ったこと</th><td style="height:24pt"></td></tr><tr><th>相手が本当にしていること</th><td style="height:24pt"></td></tr><tr><th>今どうやってしのいでいるか</th><td style="height:20pt"></td></tr><tr><th>★はどうだった？</th><td>合っていた ／ 外れた ／ まだ分からない</td></tr><tr><th>相手が気にしていたこと</th><td style="height:16pt"></td></tr><tr><th>思っていたこととちがったこと</th><td style="height:16pt"></td></tr></table></div>`;doPrint(h);}
+function doPrint(h){$('print').innerHTML=h;setTimeout(()=>window.print(),50);}
+
+/* ---------- files ---------- */
+function dl(name,obj){const b=new Blob([JSON.stringify(obj,null,1)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);toast('ファイルを保存しました');}
+function exportTeam(){const T=JSON.parse(JSON.stringify(S.team));delete T.cur;dl(`目白研心_チーム${S.team.id||'未選択'}_${ymd()}.json`,{app:'mejiro2026',kind:'team',ver:VER,at:new Date().toISOString(),team:T});}
+function exportSolo(kind){const s=JSON.parse(JSON.stringify(S.solo));dl(`目白研心_ひとり_${(s.name||'名前').replace(/\s/g,'')}_${kind==='pre'?'事前課題':'返事と振り返り'}_${ymd()}.json`,{app:'mejiro2026',kind:'solo',part:kind,ver:VER,at:new Date().toISOString(),solo:s});}
+function backup(){dl(`目白研心_控え_${S.mode==='team'?'チーム'+(S.team.id||''):'ひとり'}_${ymd()}.json`,{app:'mejiro2026',kind:'backup',ver:VER,at:new Date().toISOString(),state:S});}
+$('fileIn').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(o.app!=='mejiro2026')throw 0;
+ if(o.kind==='backup')S=deep(blank(),o.state);else if(o.kind==='team'){S.team=deep(blank().team,o.team);S.mode='team';}else if(o.kind==='solo'){S.solo=deep(blank().solo,o.solo);S.mode='solo';}
+ save();render();toast('控えから戻しました');}catch(x){toast('このファイルは読み込めません');}};r.readAsText(f);e.target.value='';});
+
+/* ---------- render ---------- */
+function list(){return S.mode==='team'?TEAM:SOLO;}
+function render(){const m=S.mode;document.documentElement.classList.toggle('small',S.ui&&S.ui.small);
+ $('bSize').textContent=(S.ui&&S.ui.small)?'文字：ふつう':'文字：大きく';
+ if(!m){$('road').innerHTML='';$('nav').style.display='none';$('main').innerHTML=home();return;}
+ $('nav').style.display='flex';const L=list();let i=Math.min(S.pos[m],L.length-1);S.pos[m]=i;const sc=L[i];
+ const stg=STAGES[m];$('road').innerHTML=stg.map((s,k)=>`<button class="${k===sc.st?'now':k<sc.st?'done':''}" data-stage="${k}">${k===sc.st?'今ここ　':''}${s}<small>${STAGE_SUB[m][k]}</small></button>`).join('');
+ $('brand').textContent=m==='team'?`チーム${S.team.id||''}｜記録係の画面`:`ひとりの画面${S.solo.name?'｜'+S.solo.name:''}`;
+ $('main').innerHTML=`<span class="time">${esc(sc.time)}</span>`+sc.r();
+ $('pos').textContent=`${i+1} ／ ${L.length}`;$('bPrev').disabled=i===0;$('bNext').textContent=i===L.length-1?'もくじへ':'次へ →';window.scrollTo(0,0);}
+function home(){return `<h1 class="q">中井の街で試す（12/14・15）</h1><p class="lead">使い方を選んでください。入力はこのiPadの中だけに保存されます（インターネットには送りません）。</p>
+ <div class="home"><div class="card" data-mode="solo"><span class="time">ひとり</span><h2>事前課題・返事・振り返り</h2><p class="note">12/7の週の事前課題（30分）と、12/15の他チームへの返事・振り返り。PDFにして先生に出します。</p></div>
+ <div class="card" data-mode="team"><span class="time">チームの記録係</span><h2>12/14・15 のチームの作業</h2><p class="note">チームで1台。見つける→つなぐ→確かめる→作り直す→形にする。発表の5枚も自動でできます。</p></div></div>
+ <div class="card soft"><b>困ったとき</b><table class="t"><tr><td class="l">入力が消えた</td><td class="l">「もくじ」→「控えから戻す」で、保存した控えファイルを選ぶ。3分ごとの控えもこのiPadに6つ残っています</td></tr><tr><td class="l">iPadが変わった</td><td class="l">前のiPadで保存した控えファイルを、新しいiPadで「控えから戻す」</td></tr><tr><td class="l">画面が動かない</td><td class="l">ページを読み込み直す（入力は残ります）。だめなら大人に言う</td></tr></table></div><p class="note">画面の版：${VER}</p>`;}
+function menu(){const L=list();const snaps=JSON.parse(localStorage.getItem(SNAPS)||'[]');$('road').innerHTML='';$('nav').style.display='none';
+ $('main').innerHTML=`<h1 class="q">もくじ</h1>${S.mode?`<div class="list">${L.map((s,i)=>`<div class="item"><div><span class="time">${STAGES[S.mode][s.st]}</span> ${esc(s.time)}</div><button class="btn small ghost" data-go="${i}">開く</button></div>`).join('')}</div>`:''}
+ <div class="card"><b>控え</b><p class="note">控えはファイルで保存し、別のiPadでも戻せます。</p><button class="btn ghost" data-act="backup">控えをファイルに保存</button> <button class="btn ghost" data-act="restore">控えから戻す</button></div>
+ <div class="card"><b>このiPadの中の控え（3分ごと・最大6つ）</b>${snaps.length?snaps.map((s,i)=>`<div class="item"><span>${new Date(s.t).toLocaleString('ja-JP')}</span><button class="btn small ghost" data-snap="${i}">この時点に戻す</button></div>`).join(''):'<p class="note">まだありません</p>'}</div>
+ <div class="card"><b>使い方を変える</b><p class="note">ひとり／チームの記録係を選び直します（入力は消えません）。</p><button class="btn ghost" data-act="mode-reset">はじめの画面へ</button></div><button class="btn" data-act="close-menu">もどる</button>`;}
+
+/* ---------- events ---------- */
+document.addEventListener('input',e=>{const t=e.target;if(t.dataset.p){set(t.dataset.p,t.value);}else if(t.dataset.tw){const id=t.dataset.tw;const x=S.team.tally[id]||(S.team.tally[id]={n:{'◎':0,'○':0,'△':0,'？':0},j:'',who:''});x.who=t.value;save();}});
+document.addEventListener('click',e=>{const b=e.target.closest('button,.card[data-mode]');if(!b)return;const d=b.dataset;
+ if(d.mode){S.mode=d.mode;save();render();return;}
+ if(d.c){let v=d.v;if(v==='true')v=true;else if(v==='false')v=false;const cur=get(d.c);set(d.c,cur===v&&typeof v!=='boolean'?'':v);if(cur===v&&typeof v==='boolean')set(d.c,false);render();return;}
+ if(d.j){const x=S.solo.j[d.j]||(S.solo.j[d.j]={});x.v=x.v===d.v?'':d.v;save();render();return;}
+ if(d.tal){const x=S.team.tally[d.tal]||(S.team.tally[d.tal]={n:{'◎':0,'○':0,'△':0,'？':0},j:'',who:''});x.n[d.s]=Math.max(0,x.n[d.s]+Number(d.d));save();const y=scrollY;render();scrollTo(0,y);return;}
+ if(d.tj){const x=S.team.tally[d.tj]||(S.team.tally[d.tj]={n:{'◎':0,'○':0,'△':0,'？':0},j:'',who:''});x.j=x.j===d.v?'':d.v;save();render();return;}
+ if(d.rt){S.solo.rt=d.rt;save();render();return;}
+ if(d.cell){const [a,c]=d.cell.split(',').map(Number);S.team.cell=[a,c];save();render();return;}
+ if(d.cond){S.team.cond[+d.cond]=d.v==='true';save();render();return;}
+ if(d.rec){S.team.cur=+d.rec;save();render();return;}
+ if(d.stage){const L=list();const k=+d.stage;const i=L.findIndex(s=>s.st===k);if(i>=0){S.pos[S.mode]=i;save();render();}return;}
+ if(d.go){S.pos[S.mode]=+d.go;save();render();return;}
+ if(d.snap){const sn=JSON.parse(localStorage.getItem(SNAPS)||'[]')[+d.snap];if(sn&&confirm('この時点に戻しますか？（今の入力は控えに残ります）')){const cur=JSON.stringify(S);const arr=JSON.parse(localStorage.getItem(SNAPS)||'[]');arr.unshift({t:Date.now(),d:cur});localStorage.setItem(SNAPS,JSON.stringify(arr.slice(0,6)));S=deep(blank(),JSON.parse(sn.d));save();render();toast('戻しました');}return;}
+ if(d.sl){if(d.sl==='x')SL=null;else SL=Math.max(0,Math.min(4,SL+Number(d.sl)));drawSlide();return;}
+ const a=d.act;if(!a)return;
+ if(a==='print-pre'||a==='print-post')printSolo(a.slice(6));
+ else if(a==='save-pre'||a==='save-post')exportSolo(a.slice(5));
+ else if(a==='save-team')exportTeam();
+ else if(a==='print-team')printTeam();
+ else if(a==='print-cards')printCards();
+ else if(a==='slides')openSlides();
+ else if(a==='backup')backup();
+ else if(a==='restore')$('fileIn').click();
+ else if(a==='copy-ai'){const t=aiPrompt();(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('コピーしました。Geminiに貼り付けてください')).catch(()=>{prompt('この文をコピーしてください',t);});}
+ else if(a==='rec-add'){S.team.recs.push({who:'',rx:'',said:'',does:'',cope:'',star:'',worry:'',diff:''});S.team.cur=S.team.recs.length-1;save();render();}
+ else if(a==='rec-done'){S.team.cur=-1;save();render();}
+ else if(a==='rec-del'){if(confirm('このカードを消しますか？')){S.team.recs.splice(S.team.cur,1);S.team.cur=-1;save();render();}}
+ else if(a==='mode-reset'){S.mode=null;save();render();}
+ else if(a==='close-menu'){render();}
+});
+$('bPrev').onclick=()=>{const m=S.mode;if(S.pos[m]>0){S.pos[m]--;save();render();}};
+$('bNext').onclick=()=>{const m=S.mode,L=list();if(S.pos[m]<L.length-1){S.pos[m]++;save();render();}else menu();};
+$('bMenu').onclick=menu;$('bHome').onclick=()=>{S.mode=null;save();render();};
+$('bSize').onclick=()=>{S.ui=S.ui||{};S.ui.small=!S.ui.small;save();render();};
+document.addEventListener('keydown',e=>{if(SL==null)return;if(e.key==='ArrowRight')SL=Math.min(4,SL+1);else if(e.key==='ArrowLeft')SL=Math.max(0,SL-1);else if(e.key==='Escape')SL=null;drawSlide();});
+window.addEventListener('error',()=>toast('画面の一部が動きません。読み込み直してください（入力は残っています）'));
+/* debug: ?demo=1&m=team&s=5 for screenshots */
+(function(){const p=new URLSearchParams(location.search);if(p.get('demo')&&window.DEMO){S=deep(blank(),window.DEMO);}if(p.get('m')){S.mode=p.get('m');S.pos[S.mode]=+(p.get('s')||0);}if(p.get('small'))S.ui={small:true};})();
+render();
+</script>
+</body>
+</html>
