@@ -124,7 +124,7 @@ nav.bottom .pos{color:var(--sub);font-size:.8em;text-align:center}
 
 <script>
 "use strict";
-const VER='v1.0（2026年11月）';
+const VER='v1.1（2026年11月23日）';
 const KEY='mejiro2026_wb', SNAPS='mejiro2026_wb_snaps';
 const TEAMS='ABCDEFGHI'.split('');
 const Q7=[
@@ -160,7 +160,7 @@ function blank(){return {ver:1,mode:null,ui:{small:false},pos:{solo:0,team:0},
  team:{id:'',wish:'',wishWhy:'',tally:{},treas:[{q:'',w:''},{q:'',w:''}],tq:'',troubles:['','',''],cell:null,cellIdea:'',far:'',ai:{ans:'',done:false},
   h:{who:'',scene:'',cope:'',give:'',p1:'',p2:'',star:'',stop:''},prep:{first:'',ask:'',not:''},recs:[],cur:-1,
   star:'',rev:[{c:'',n:''},{c:'',n:''},{c:'',n:''}],cond:[null,null,null,null,null,null],condWhy:'',judge:'',judgeWhy:'',title:'',oneline:'',
-  partner:'',pGain:'',sGain:'',five:{to:'',what:'',how:'',with:'',keep:''},three:{who:'',start:'',newv:''},first:''}};}
+  partner:'',pGain:'',sGain:'',aiDiff:'',five:{to:'',what:'',how:'',with:'',keep:''},three:{who:'',start:'',newv:''},first:''}};}
 let S=load();
 function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&x.ver===1)return deep(blank(),x);}catch(e){}return blank();}
 function deep(a,b){for(const k in b){if(b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])&&a[k]&&typeof a[k]==='object'&&!Array.isArray(a[k]))deep(a[k],b[k]);else a[k]=b[k];}return a;}
@@ -202,11 +202,10 @@ const STAGES={team:['見つける','つなぐ','確かめる','作り直す','�
 const STAGE_SUB={team:['12/14 午前','12/14 午前','12/14 午後〜12/15朝','12/15 午前','12/15 午後'],solo:['12/7の週','12/15 発表のとき','12/15 最後']};
 const SOLO=[
  {st:0,time:'12/7の週・30分・AIは使わない',r:()=>`<h1 class="q">あなたの名前を書いてください</h1><p class="lead">先生に出すPDFに入ります。名前は数えるときには使いません。</p>${fld('solo.name','','例：目白 花子',1)}<div class="card soft">分からないときは「？」でかまいません。「？」はまちがいではありません。12/14は「何が分からなかったか」から始めます。</div>`},
- {st:0,time:'事前課題 1',r:()=>`<h1 class="q">3〜5年後、目白研心はどんな学校になっていてほしい？</h1>${fld('solo.wish','なっていてほしい姿（1〜2行）','例：地域の人が気軽に出入りして、いっしょに何かを試している学校',2)}${fld('solo.wishWhy','なぜ？（1行）','',2)}`},
- ...Q7.map((q,i)=>({st:0,time:`事前課題 2　学校の力（${i+1}／7）`,r:()=>soloJ(i)})),
- {st:0,time:'事前課題 3',r:()=>`<h1 class="q">自分の問いを、中井で人に聞いて確かめられる問いに言いかえよう</h1>${help('例：「時間帯で大江戸線の混み方はちがうのか」→「中井駅を使う人は、どの時間帯に、何に困っているか」<br>例：「なぜコンビニは便利なのか」→「中井の商店街のお店は、コンビニとどうちがう役わりをしているか」')}${fld('solo.ask.now','いまの問い','',2)}${fld('solo.ask.q','中井で確かめられる問い','',2)}${fld('solo.ask.guess','答えの予想（1行）','',1)}`},
- {st:0,time:'事前課題 4',r:()=>`<h1 class="q">中井で困っていそうな人と場面を1つ</h1><p class="lead">「高れい化」のような大きな言葉ではなく、だれが・いつ・どこで・何に困っていて、今どうやってしのいでいるか。</p>${fld('solo.trouble','','例：夕方、中井駅の階段の前で、ベビーカーを押した人が…',3)}`},
- {st:0,time:'事前課題 5',r:()=>`<h1 class="q">今思いつく案を1行で</h1><p class="lead">◎か○にした学校の力と、4の困りごとを組み合わせて。調べずに。</p>${fld('solo.idea','','',2)}`},
+ ...Q7.map((q,i)=>({st:0,time:`事前課題 1　学校の力（${i+1}／7）`,r:()=>soloJ(i)})),
+ {st:0,time:'事前課題 2',r:()=>`<h1 class="q">自分の問いを、中井で人に聞いて確かめられる問いに言いかえよう</h1>${help('例：「時間帯で大江戸線の混み方はちがうのか」→「中井駅を使う人は、どの時間帯に、何に困っているか」<br>例：「なぜコンビニは便利なのか」→「中井の商店街のお店は、コンビニとどうちがう役わりをしているか」')}${fld('solo.ask.now','いまの問い','',2)}${fld('solo.ask.q','中井で確かめられる問い','',2)}${fld('solo.ask.guess','答えの予想（1行）','',1)}`},
+ {st:0,time:'事前課題 3',r:()=>`<h1 class="q">中井で困っていそうな人と場面を1つ</h1><p class="lead">「高れい化」のような大きな言葉ではなく、だれが・いつ・どこで・何に困っていて、今どうやってしのいでいるか。</p>${fld('solo.trouble','','例：夕方、中井駅の階段の前で、ベビーカーを押した人が…',3)}`},
+ {st:0,time:'事前課題 4',r:()=>`<h1 class="q">今思いつく案を1行で</h1><p class="lead">◎か○にした学校の力と、3の困りごとを組み合わせて。調べずに。</p>${fld('solo.idea','','',2)}`},
  {st:0,time:'事前課題を出す',r:()=>outSolo('pre')},
  {st:1,time:'12/15 発表のとき（ひとり）',r:()=>soloReply()},
  {st:2,time:'12/15 最後（ひとり）',r:()=>`<h1 class="q">振り返り（3つ）</h1>${fld('solo.refl.r1','1. 何が「思い込み」だった？','',2)}${fld('solo.refl.r2','2. いちばん効いた聞き方は？','',2)}${fld('solo.refl.r3','3. 3学期にどう使う？','',2)}`},
@@ -228,19 +227,18 @@ function outSolo(kind){const nm=S.solo.name||'（名前）';return `<h1 class="q
 const TEAM=[
  {st:0,time:'12/14 10:00〜10:35',r:()=>`<h1 class="q">チームを選んでください</h1><p class="lead">このiPadを、2日間チームの記録係が使います。入力はこのiPadの中だけに保存されます。</p><div class="teams">${TEAMS.map(x=>`<button class="chip ${S.team.id===x?'on':''}" data-c="team.id" data-v="${x}"><b>${x}</b></button>`).join('')}</div>
  <div class="card soft">約束：AIの答えはそのまま使わない／2人以上で動く／困ったら大人に言う。<br>相手が言ったことと、実際にしていることは違うことがある。それを確かめに行く2日間です。</div>`},
- {st:0,time:'12/14 10:35〜11:00',r:()=>`<h1 class="q">ありたい姿を読み合って、チームのひと言に</h1><p class="lead">事前課題の1を2〜3人で読み合います。</p>${fld('team.wish','3〜5年後、目白研心はどんな学校になっていてほしい？（チームのひと言）','',2)}${fld('team.wishWhy','なぜ？','',2)}`},
- ...Q7.map((q,i)=>({st:0,time:`12/14 10:35〜11:00　7問の持ち寄り（${i+1}／7）`,r:()=>teamTally(i)})),
- {st:0,time:'12/14 10:35〜11:00',r:()=>teamTallySum()},
- {st:0,time:'12/14 11:00〜11:25',r:()=>`<h1 class="q">学校の「宝のひと言」を1〜2つ</h1><p class="lead">◎で「外の誰が言った・したか」があるものを、具体的なひと言に。問いの名前ではなく「放課後の理科室と、実験を教えられる生徒」のように。</p>
+ ...Q7.map((q,i)=>({st:0,time:`12/14 10:35〜10:55　7問の持ち寄り（${i+1}／7）`,r:()=>teamTally(i)})),
+ {st:0,time:'12/14 10:35〜10:55',r:()=>teamTallySum()},
+ {st:0,time:'12/14 10:55〜11:05',r:()=>`<h1 class="q">学校の「宝のひと言」を1〜2つ</h1><p class="lead">◎で「外の誰が言った・したか」があるものを、具体的なひと言に。問いの名前ではなく「放課後の理科室と、実験を教えられる生徒」のように。</p>
  ${[0,1].map(k=>`<div class="card"><b>宝 ${k+1}</b>${chips('team.treas.'+k+'.q',Q7.map(q=>({v:q.name,t:q.name})))}${fld('team.treas.'+k+'.w','ひと言','',2)}</div>`).join('')}`},
- {st:1,time:'12/14 11:00〜11:25',r:()=>`<h1 class="q">中井の困りごとを「場面」で3つまで</h1><p class="lead">一人ずつの事前課題4から。だれが・いつ・どこで・何に困っているか。</p>${fld('team.tq','チームで確かめたい問い（事前課題3から1つ）','',2)}${[0,1,2].map(k=>fld('team.troubles.'+k,'困りごと '+(k+1),'',2)).join('')}`},
- {st:1,time:'12/14 11:00〜11:25',r:()=>teamGrid()},
+ {st:1,time:'12/14 11:05〜11:25',r:()=>`<h1 class="q">中井の困りごとを「場面」で3つまで</h1><p class="lead">一人ずつの事前課題3から。だれが・いつ・どこで・何に困っているか。</p>${fld('team.tq','チームで確かめたい問い（事前課題2から1つ）','',2)}${[0,1,2].map(k=>fld('team.troubles.'+k,'困りごと '+(k+1),'',2)).join('')}`},
+ {st:1,time:'12/14 11:05〜11:25',r:()=>teamGrid()},
  {st:1,time:'12/14 11:25〜11:35',r:()=>teamAI()},
  {st:1,time:'12/14 11:35〜12:15　仮説シート（1／4）',r:()=>`<h1 class="q">誰が、どんな場面で困っている？</h1>${fld('team.h.who','誰が（名前か、特定できる立場で）','「高齢者」「観光客」は相手ではない',2)}${fld('team.h.scene','どんな場面で困る？（いつ・どこで・何に）','',2)}`},
  {st:1,time:'12/14 11:35〜12:15　仮説シート（2／4）',r:()=>`<h1 class="q">いま何でしのいでいる？ 何を渡す？</h1>${fld('team.h.cope','いま何でしのいでいる？（分からなければ「分からない」）','',2)}${fld('team.h.give','わたしたちが渡すもの（もの・場・しくみ・時間）','「アプリ」だけで終わらせない',2)}`},
  {st:1,time:'12/14 11:35〜12:15　仮説シート（3／4）',r:()=>`<h1 class="q">組む相手を2つ</h1>${fld('team.h.p1','① 学校の強みを渡す相手','',2)}${fld('team.h.p2','② 足りないところを助けてくれる相手','',2)}`},
  {st:1,time:'12/14 11:35〜12:15　仮説シート（4／4）',r:()=>`<h1 class="q">★いちばん確かでないこと と やめる条件</h1>${fld('team.h.star','★ これが外れたら案が成り立たない、いちばん確かでないこと','聞き取りの最初に確かめる',2)}${fld('team.h.stop','やめる条件（聞く前に決める）','例：「いいね」だけで、動いた人が1人もいなければ やめる',2)}${saveHint('つなぐ')}`},
- {st:2,time:'12/14 12:50〜13:45',r:()=>`<h1 class="q">聞き取りの準備</h1>${fld('team.prep.first','最初に話を聞く相手（お店の方・駅や商店街を使う人など）','',2)}${fld('team.prep.ask','最初の質問（★を確かめる）','「いいね」で終わらせない：いつ・何回・今は何でしのいでいるか',2)}
+ {st:2,time:'12/14 12:50〜13:45',r:()=>`<h1 class="q">聞き取りの準備</h1><div class="card soft">目標（努力目標）：チームで<b>3人以上</b>に話を聞く。うち<b>本人か同じ立場の人を1人以上</b>。家族・友だちは練習で、数に入れません。</div>${fld('team.prep.first','最初に話を聞く相手（お店の方・駅や商店街を使う人など）','',2)}${fld('team.prep.ask','最初の質問（★を確かめる）','「いいね」で終わらせない：いつ・何回・今は何でしのいでいるか',2)}
  <div class="card soft"><b>安全の約束</b>：2人以上で動く／1店5分まで／混んでいるお店には入らない／写真・録音はお店の許可を取ってから／お金・健康・家族のことは聞かない／「これは内緒で」と言われたら、そこでやめる</div>
  <div class="card"><b>記録カード（話を聞いた人1人に1枚）</b><p class="note">中井にはiPadを持ち出さず、紙のカードに書きます。12/15の朝にこのiPadに入れます。</p><button class="btn ghost" data-act="print-cards">記録カードを印刷する</button></div>`},
  {st:2,time:'12/15 9:00〜9:20',r:()=>teamRecs()},
@@ -279,7 +277,7 @@ function teamRecs(){const r=S.team.recs,cur=S.team.cur;
   <label class="f">相手の反応は？</label>${chips(p+'.rx',RX,'big4')}
   <div class="row"><div>${fld(p+'.said','相手が言ったこと','',2)}</div><div>${fld(p+'.does','相手が本当にしていること','',2)}</div></div>
   ${fld(p+'.cope','今どうやってしのいでいるか','',2)}<label class="f">★はどうだった？</label>${chips(p+'.star',STAR.map(s=>({v:s,t:s})))}
-  <div class="row"><div>${fld(p+'.worry','相手が気にしていたこと（話してくれたときだけ）','',2)}</div><div>${fld(p+'.diff','思っていたこととちがったこと','',2)}</div></div>
+  <div class="row"><div>${fld(p+'.worry','相手が気にしていたこと（話してくれたときだけ）','',2)}</div><div>${fld(p+'.diff','思い込みだったこと（思っていたこととちがったこと）を1行','',2)}</div></div>
   <button class="btn" data-act="rec-done">このカードを入れ終わった</button> <button class="btn ghost small" data-act="rec-del">このカードを消す</button>`;}
  return `<h1 class="q">記録カードを入れる</h1><p class="lead">昨日のカードを1枚ずつ。いま ${r.length} 枚。</p><div class="list">${r.map((x,i)=>`<div class="item"><div><b>${i+1}.</b> ${esc(x.who||'？')}／${esc(x.rx||'？')}　<span class="note">${esc((x.said||'').slice(0,30))}</span></div><button class="btn small ghost" data-rec="${i}">開く</button></div>`).join('')}</div><button class="btn" data-act="rec-add">＋ カードを1枚入れる</button>`;}
 function recSumLine(){const st=recStats();return `<div class="stat"><div>話を聞いた人 ${st.n}人（練習 ${st.prac}人は別）</div><div>本人・同じ立場から「動いた」以上 ${st.strong}件</div><div>いちばん強い反応：${st.best?esc(st.best.rx)+'（'+esc(st.best.who)+'）':'まだない'}</div></div>`;}
@@ -292,13 +290,14 @@ function teamCond(){return `<h1 class="q">依頼主の6つの条件を点検</h1
 /* ---------- slides ---------- */
 function slides(){const T=S.team,H=T.h,st=recStats();const rev=T.rev.map((r,k)=>({k:['困りごと','渡すもの','決める人・組む相手'][k],c:r.c,n:r.n}));
  return [
- {h:'問い',t:esc(T.title||'（案の名前）'),b:`<p><b>チームの問い：</b>${esc(T.tq)}</p><p><b>ありたい姿：</b>${esc(T.wish)}</p><p><b>使う学校の宝：</b>${esc(treasText())}</p>`},
+ {h:'問い',t:esc(T.title||'（案の名前）'),b:`<p><b>チームの問い：</b>${esc(T.tq)}</p><p><b>使う学校の宝：</b>${esc(treasText())}</p>`},
  {h:'仮説',t:'誰が、どんな場面で困っている？',b:`<p><b>誰が：</b>${esc(H.who)}</p><p><b>場面：</b>${esc(H.scene)}</p><p><b>今のしのぎ方：</b>${esc(H.cope)}</p><p><b>渡すもの：</b>${esc(H.give)}</p><p><b>★いちばん確かでないこと：</b>${esc(H.star)}</p>`},
- {h:'聞いたこと',t:`話を聞いた人 ${st.n}人（練習 ${st.prac}人）`,b:`${recTable()}<p><b>いちばん強い反応：</b>${st.best?esc(st.best.rx)+'（'+esc(st.best.who)+'）「'+esc(st.best.said||st.best.does||'')+'」':'まだない'}</p><p><b>★は：</b>${esc(T.star)}</p>`},
- {h:'直したこと',t:`判断：${esc(T.judge||'—')}`,b:`<table class="t"><tr><th class="l">項目</th><th>どうした</th><th class="l">新しい案</th></tr>${rev.map(r=>`<tr><td class="l">${r.k}</td><td>${esc(r.c)}</td><td class="l">${esc(r.n)}</td></tr>`).join('')}</table><p><b>理由：</b>${esc(T.judgeWhy)}</p><p class="note">AIだけの案：${esc((T.ai.ans||'').slice(0,90))}${(T.ai.ans||'').length>90?'…':''}</p>`},
- {h:'提案',t:esc(T.oneline||T.title||'提案'),b:`<p><b>誰が受け取る？</b>${esc(T.three.who)}</p><p><b>何から始める？</b>${esc(T.three.start)}</p><p><b>何が新しく生まれる？</b>${esc(T.three.newv)}</p><p><b>組む相手と、増えるもの：</b>${esc(T.partner)}／${esc(T.pGain)}</p><p><b>やめる条件：</b>${esc(H.stop)}　<b>条件：</b>${T.cond.filter(x=>x===true).length}／6</p>`}
+ {h:'聞いたこと',t:`話を聞いた人 ${st.n}人（練習 ${st.prac}人）`,b:`${recTable()}<p><b>いちばん強い反応：</b>${st.best?esc(st.best.rx)+'（'+esc(st.best.who)+'）「'+esc(st.best.said||st.best.does||'')+'」':'まだない'}</p><p><b>★は：</b>${esc(T.star)}</p>${T.recs.some(r=>r.diff)?`<p><b>思い込みだったこと：</b>${T.recs.filter(r=>r.diff).slice(0,3).map(r=>esc(r.diff)).join('／')}</p>`:''}`},
+ {h:'直したこと',t:`判断：${esc(T.judge||'—')}`,b:`<table class="t"><tr><th class="l">項目</th><th>どうした</th><th class="l">新しい案</th></tr>${rev.map(r=>`<tr><td class="l">${r.k}</td><td>${esc(r.c)}</td><td class="l">${esc(r.n)}</td></tr>`).join('')}</table><p><b>理由：</b>${esc(T.judgeWhy)}</p>`},
+ {h:'提案',t:esc(T.oneline||T.title||'提案'),b:`<p><b>誰が受け取る？</b>${esc(T.three.who)}</p><p><b>何から始める？</b>${esc(T.three.start)}</p><p><b>何が新しく生まれる？</b>${esc(T.three.newv)}</p><p><b>組む相手と、増えるもの：</b>${esc(T.partner)}／${esc(T.pGain)}</p><p><b>やめる条件：</b>${esc(H.stop)}　<b>条件：</b>${T.cond.filter(x=>x===true).length}／6</p>`},
+ {h:'AIだけの案と比べる',t:'聞く前のAIの案と、聞いて作り直した案',b:`<table class="t"><tr><th class="l">AIだけの案（12/14 午前）</th><th class="l">わたしたちの最後の案（12/15）</th></tr><tr><td class="l">${esc(T.ai.ans||'（記録なし）')}</td><td class="l">${esc(T.oneline||T.title||'')}<br>${esc(T.three.start)}</td></tr></table><p><b>何が変わった？</b>${esc(T.aiDiff||'')}</p><p class="note">見るところ：困っている人の具体さ・依頼主の条件・組む相手</p>`}
  ];}
-function teamSlidesPrev(){return `<h1 class="q">発表の5枚（入力から自動でできます）</h1><p class="lead">言いたいことが足りないところは、その画面に戻って1行ずつ直します。</p>${slides().map((s,i)=>`<div class="card"><span class="time">${i+1}. ${s.h}</span><div style="font-weight:800;font-size:1.1em;margin:6px 0">${s.t}</div><div class="note">${s.b}</div></div>`).join('')}<button class="btn" data-act="slides">発表を始める（全画面）</button>`;}
+function teamSlidesPrev(){return `<h1 class="q">発表の6枚（入力から自動でできます）</h1><p class="lead">言いたいことが足りないところは、その画面に戻って1行ずつ直します。6枚目は、AIだけの案と最後の案を並べます。</p>${fld('team.aiDiff','AIだけの案と比べて、何が変わった？（1行）','例：困っている人が「商店街の人」から「土曜の朝に一人で準備している店主」になった',2)}${slides().map((s,i)=>`<div class="card"><span class="time">${i+1}. ${s.h}</span><div style="font-weight:800;font-size:1.1em;margin:6px 0">${s.t}</div><div class="note">${s.b}</div></div>`).join('')}<button class="btn" data-act="slides">発表を始める（全画面）</button>`;}
 let SL=null;
 function openSlides(){SL=0;drawSlide();}
 function drawSlide(){let d=document.querySelector('.slide');if(SL==null){if(d)d.remove();return;}if(!d){d=document.createElement('div');d.className='slide';document.body.appendChild(d);}
@@ -306,8 +305,8 @@ function drawSlide(){let d=document.querySelector('.slide');if(SL==null){if(d)d.
 
 /* ---------- print ---------- */
 function printSolo(kind){const s=S.solo;let h=`<h1>12月特別講義　${kind==='pre'?'事前課題':'返事と振り返り'}</h1><p>名前：${esc(s.name)}　作成：${new Date().toLocaleString('ja-JP')}</p>`;
- if(kind==='pre'){h+=`<h2>1. 3〜5年後、目白研心はどんな学校になっていてほしい？</h2><p>${esc(s.wish)}</p><p>なぜ？ ${esc(s.wishWhy)}</p><h2>2. 学校の力（7つの質問）</h2><table><tr><th>質問</th><th>答え</th><th>理由</th><th>◎のとき：外の誰が</th></tr>${Q7.map(q=>{const j=s.j[q.id]||{};return `<tr><td>${q.name}</td><td>${esc(j.v)}</td><td>${esc(j.why)}</td><td>${esc(j.who)}</td></tr>`;}).join('')}</table>
- <h2>3. 中井で確かめられる問い</h2><p>いまの問い：${esc(s.ask.now)}</p><p>確かめられる問い：${esc(s.ask.q)}</p><p>答えの予想：${esc(s.ask.guess)}</p><h2>4. 困っていそうな人と場面</h2><p>${esc(s.trouble)}</p><h2>5. 今思いつく案</h2><p>${esc(s.idea)}</p>`;}
+ if(kind==='pre'){h+=`<h2>1. 学校の力（7つの質問）</h2><table><tr><th>質問</th><th>答え</th><th>理由</th><th>◎のとき：外の誰が</th></tr>${Q7.map(q=>{const j=s.j[q.id]||{};return `<tr><td>${q.name}</td><td>${esc(j.v)}</td><td>${esc(j.why)}</td><td>${esc(j.who)}</td></tr>`;}).join('')}</table>
+ <h2>2. 中井で確かめられる問い</h2><p>いまの問い：${esc(s.ask.now)}</p><p>確かめられる問い：${esc(s.ask.q)}</p><p>答えの予想：${esc(s.ask.guess)}</p><h2>3. 困っていそうな人と場面</h2><p>${esc(s.trouble)}</p><h2>4. 今思いつく案</h2><p>${esc(s.idea)}</p>`;}
  else{h+=`<h2>他チームへの返事（あなたが相手だったら、受け取りたいか）</h2><table><tr><th>チーム</th><th>返事</th><th>理由</th></tr>${TEAMS.map(t=>{const r=s.reply[t]||{};return `<tr><td>${t}</td><td>${esc(r.v)}</td><td>${esc(r.why)}</td></tr>`;}).join('')}</table><h2>振り返り</h2><p>1. 何が思い込みだった？ ${esc(s.refl.r1)}</p><p>2. いちばん効いた聞き方 ${esc(s.refl.r2)}</p><p>3. 3学期にどう使う？ ${esc(s.refl.r3)}</p>`;}
  h+=`<p style="font-size:9pt">書いたことは名前をかくして数え、この授業のやり方を良くするためにだけ使います。成績には関係しません。</p>`;doPrint(h);}
 function printTeam(){const T=S.team;let h=`<h1>チーム${esc(T.id)}　2日間の記録（控え）</h1><p>作成：${new Date().toLocaleString('ja-JP')}</p>`;
@@ -340,7 +339,7 @@ function render(){const m=S.mode;document.documentElement.classList.toggle('smal
  $('pos').textContent=`${i+1} ／ ${L.length}`;$('bPrev').disabled=i===0;$('bNext').textContent=i===L.length-1?'もくじへ':'次へ →';window.scrollTo(0,0);}
 function home(){return `<h1 class="q">中井の街で試す（12/14・15）</h1><p class="lead">使い方を選んでください。入力はこのiPadの中だけに保存されます（インターネットには送りません）。</p>
  <div class="home"><div class="card" data-mode="solo"><span class="time">ひとり</span><h2>事前課題・返事・振り返り</h2><p class="note">12/7の週の事前課題（30分）と、12/15の他チームへの返事・振り返り。PDFにして先生に出します。</p></div>
- <div class="card" data-mode="team"><span class="time">チームの記録係</span><h2>12/14・15 のチームの作業</h2><p class="note">チームで1台。見つける→つなぐ→確かめる→作り直す→形にする。発表の5枚も自動でできます。</p></div></div>
+ <div class="card" data-mode="team"><span class="time">チームの記録係</span><h2>12/14・15 のチームの作業</h2><p class="note">チームで1台。見つける→つなぐ→確かめる→作り直す→形にする。発表の6枚も自動でできます。</p></div></div>
  <div class="card soft"><b>困ったとき</b><table class="t"><tr><td class="l">入力が消えた</td><td class="l">「もくじ」→「控えから戻す」で、保存した控えファイルを選ぶ。3分ごとの控えもこのiPadに6つ残っています</td></tr><tr><td class="l">iPadが変わった</td><td class="l">前のiPadで保存した控えファイルを、新しいiPadで「控えから戻す」</td></tr><tr><td class="l">画面が動かない</td><td class="l">ページを読み込み直す（入力は残ります）。だめなら大人に言う</td></tr></table></div><p class="note">画面の版：${VER}</p>`;}
 function menu(){const L=list();const snaps=JSON.parse(localStorage.getItem(SNAPS)||'[]');$('road').innerHTML='';$('nav').style.display='none';
  $('main').innerHTML=`<h1 class="q">もくじ</h1>${S.mode?`<div class="list">${L.map((s,i)=>`<div class="item"><div><span class="time">${STAGES[S.mode][s.st]}</span> ${esc(s.time)}</div><button class="btn small ghost" data-go="${i}">開く</button></div>`).join('')}</div>`:''}

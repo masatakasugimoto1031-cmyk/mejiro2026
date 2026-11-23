@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>集計ページ｜目白研心 12月特別講義（講師の手元用）</title>
+<style>
+:root{--ac:#2e7d5a;--ac-d:#1e5a3f;--ac-l:#e7f2ec;--ink:#1f2933;--sub:#52606d;--line:#d5dde3}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Hiragino Sans","Noto Sans JP","Noto Sans CJK JP",sans-serif;color:var(--ink);font-size:18px;line-height:1.6}
+main{max-width:1150px;margin:0 auto;padding:24px}
+h1{font-size:28px;margin:0 0 6px;color:var(--ac-d)}
+h2{font-size:22px;margin:28px 0 8px;padding:4px 10px;background:var(--ac-l);border-radius:8px}
+.note{color:var(--sub);font-size:15px}
+.drop{border:3px dashed var(--line);border-radius:18px;padding:28px;text-align:center;margin:16px 0;cursor:pointer}
+.drop.on{border-color:var(--ac);background:var(--ac-l)}
+.btn{border:0;background:var(--ac);color:#fff;border-radius:12px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:16px}
+.btn.ghost{background:#fff;color:var(--ac-d);border:2px solid var(--ac)}
+table{border-collapse:collapse;width:100%;margin:6px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:center;vertical-align:top}
+th{background:#f6f8f9}
+td.l,th.l{text-align:left}
+.kpi{display:flex;gap:12px;flex-wrap:wrap}
+.kpi div{background:var(--ac-l);color:var(--ac-d);border-radius:12px;padding:8px 14px;font-weight:700}
+.files{font-size:14px;color:var(--sub)}
+.tcard{border:2px solid var(--line);border-radius:14px;padding:12px 16px;margin:10px 0;page-break-inside:avoid}
+@media print{.noprint{display:none!important} body{font-size:10.5pt} h1{font-size:15pt} h2{font-size:12.5pt;background:none;border-bottom:1px solid #999;border-radius:0;padding:0} table{font-size:9pt} main{padding:0}}
+</style>
+</head>
+<body>
+<main>
+<h1>集計ページ｜12月特別講義（12/14・15）</h1>
+<p class="note">講師の手元で開くページです。ファイルはこの端末の中だけで読み、インターネットには送りません。名前は集計にも報告にも出しません。</p>
+<div class="noprint">
+ <div class="drop" id="drop">ここに書き出しファイル（チーム・ひとり）をまとめてドロップ<br><span class="note">またはクリックして選ぶ（複数可）</span></div>
+ <input type="file" id="fin" multiple accept=".json,application/json" style="display:none">
+ <p class="files" id="files">まだ読み込んでいません</p>
+ <button class="btn" id="bPrint">報告のPDFにする</button> <button class="btn ghost" id="bCsv">7問と反応をCSVで保存</button> <button class="btn ghost" id="bClear">読み込みをやめる</button>
+</div>
+<div id="out"></div>
+</main>
+<script>
+"use strict";
+const Q7=[['A2','ひと'],['B3','名前'],['C1','よゆう'],['D1','つながり'],['E2','選ばれる理由'],['F2','地元とのつながり'],['G1','いっしょに始めたこと']];
+const SY=['◎','○','△','？'];const WHO=[['本人','困っている本人'],['同じ立場','同じ立場の人'],['お店・団体','お店・団体・区役所など'],['練習','練習（家族・友だち・学校）']];const RX=['言った','動いた','約束した'];
+const COND=['強みと、外の誰が','場面としのぎ方','組む相手と増えるもの','動いた以上の反応','★とやめる条件の結果','3つの問いと最初の一歩'];
+let teams={},solos=[];
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function add(files){let n=0;const ps=[...files].map(f=>f.text().then(t=>{try{const o=JSON.parse(t);if(o.app!=='mejiro2026')return;
+ if(o.kind==='team'&&o.team&&o.team.id){teams[o.team.id]=o.team;n++;}
+ else if(o.kind==='backup'&&o.state&&o.state.team&&o.state.team.id&&(o.state.mode==='team')){teams[o.state.team.id]=o.state.team;n++;}
+ else if(o.kind==='solo'&&o.solo){solos.push({part:o.part,s:o.solo});n++;}}catch(e){}}));
+ Promise.all(ps).then(()=>{$('files').textContent=`チーム ${Object.keys(teams).sort().join('・')||'なし'}（${Object.keys(teams).length}）／ひとりのファイル ${solos.length}`;draw();});}
+$('drop').onclick=()=>$('fin').click();$('fin').onchange=e=>{add(e.target.files);e.target.value='';};
+['dragover','dragenter'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.add('on');}));
+['dragleave','drop'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.remove('on');if(ev==='drop')add(e.dataTransfer.files);}));
+$('bPrint').onclick=()=>window.print();$('bClear').onclick=()=>{teams={};solos=[];$('files').textContent='まだ読み込んでいません';draw();};
+function tal(t,id){const x=(t.tally||{})[id];return x&&x.n?x:{n:{'◎':0,'○':0,'△':0,'？':0},j:''};}
+function rate(n){const tot=SY.reduce((a,s)=>a+(n[s]||0),0),jd=tot-(n['？']||0),mx=Math.max(n['◎']||0,n['○']||0,n['△']||0);return {tot,jd,r:tot?Math.round(jd*100/tot):null,a:jd?Math.round(mx*100/jd):null};}
+function q7rows(){const ids=Object.keys(teams).sort();return Q7.map(([id,nm])=>{const pool={'◎':0,'○':0,'△':0,'？':0};const tj={};ids.forEach(k=>{const x=tal(teams[k],id);SY.forEach(s=>pool[s]+=x.n[s]||0);tj[k]=x.j||'';});return {id,nm,pool,st:rate(pool),tj};});}
+function rxPool(){const m={};WHO.forEach(([w])=>{m[w]={};RX.forEach(r=>m[w][r]=0);});Object.values(teams).forEach(t=>(t.recs||[]).forEach(x=>{if(m[x.who]&&RX.includes(x.rx))m[x.who][x.rx]++;}));return m;}
+function teamRx(t){const r=t.recs||[];const real=r.filter(x=>x.who&&x.who!=='練習');const strong=r.filter(x=>(x.who==='本人'||x.who==='同じ立場')&&(x.rx==='動いた'||x.rx==='約束した')).length;const rk={'言った':1,'動いた':2,'約束した':3};let best=null;real.forEach(x=>{if(x.rx&&(!best||rk[x.rx]>rk[best.rx]))best=x;});return {n:real.length,prac:r.length-real.length,strong,best};}
+function draw(){const ids=Object.keys(teams).sort();if(!ids.length&&!solos.length){$('out').innerHTML='';return;}
+ const rows=q7rows();const pm=rxPool();let h=`<p class="note">作成：${new Date().toLocaleString('ja-JP')}　チーム ${ids.length}／ひとりのファイル ${solos.length}　名前は出していません</p>`;
+ h+=`<h2>1. 学校の力（7問）：判定できた割合と答えの割れ方</h2><p class="note">DAY1の読み合わせで記録係が押した人数の合計。判定できた割合＝「？」以外の割合。いちばん多い答えの割合＝判定できた人のうち、最多の答えを選んだ人の割合（高いほど答えがそろっている）。</p>
+ <table><tr><th class="l">問い</th>${SY.map(s=>`<th>${s}</th>`).join('')}<th>人数</th><th>判定できた割合</th><th>いちばん多い答えの割合</th>${ids.map(k=>`<th>${k}</th>`).join('')}</tr>${rows.map(r=>`<tr><td class="l">${r.id} ${r.nm}</td>${SY.map(s=>`<td>${r.pool[s]}</td>`).join('')}<td>${r.st.tot}</td><td>${r.st.r==null?'—':r.st.r+'%'}</td><td>${r.st.a==null?'—':r.st.a+'%'}</td>${ids.map(k=>`<td>${esc(r.tj[k])}</td>`).join('')}</tr>`).join('')}</table>
+ <p class="note">チームの列は、チームで決めた判定。人数が3人未満の問いは参考まで。</p>`;
+ const tot={n:0,prac:0,strong:0};ids.forEach(k=>{const x=teamRx(teams[k]);tot.n+=x.n;tot.prac+=x.prac;tot.strong+=x.strong;});
+ h+=`<h2>2. 聞き取り：相手の種類 × 反応</h2><div class="kpi"><div>話を聞いた人 ${tot.n}人（練習 ${tot.prac}人は別）</div><div>本人・同じ立場から「動いた」以上 ${tot.strong}件</div><div>「動いた」以上を得たチーム ${ids.filter(k=>teamRx(teams[k]).strong>0).length}／${ids.length}</div></div>
+ <table><tr><th class="l">相手</th>${RX.map(r=>`<th>${r}</th>`).join('')}</tr>${WHO.map(([w,t])=>`<tr><td class="l">${t}</td>${RX.map(r=>`<td>${pm[w][r]}</td>`).join('')}</tr>`).join('')}</table>
+ <table><tr><th>チーム</th><th>聞いた人数</th><th>練習</th><th>本人・同じ立場から動いた以上</th><th class="l">いちばん強い反応</th><th>★</th><th>判断</th><th>条件</th></tr>${ids.map(k=>{const t=teams[k],x=teamRx(t);return `<tr><td>${k}</td><td>${x.n}</td><td>${x.prac}</td><td>${x.strong}</td><td class="l">${x.best?esc(x.best.rx)+'（'+esc(x.best.who)+'）':''}</td><td>${esc(t.star)}</td><td>${esc(t.judge)}</td><td>${(t.cond||[]).filter(v=>v===true).length}／6</td></tr>`;}).join('')}</table>`;
+ h+=`<h2>3. 依頼主の6つの条件</h2><table><tr><th class="l">条件</th>${ids.map(k=>`<th>${k}</th>`).join('')}<th>そろったチーム</th></tr>${COND.map((c,i)=>`<tr><td class="l">${i+1}. ${c}</td>${ids.map(k=>{const v=(teams[k].cond||[])[i];return `<td>${v===true?'○':v===false?'×':''}</td>`;}).join('')}<td>${ids.filter(k=>(teams[k].cond||[])[i]===true).length}</td></tr>`).join('')}</table>`;
+ const rep={};solos.filter(s=>s.part==='post').forEach(o=>Object.entries(o.s.reply||{}).forEach(([k,v])=>{if(!v||!v.v)return;rep[k]=rep[k]||{'受け取りたい':0,'条件つき':0,'受け取らない':0};if(rep[k][v.v]!=null)rep[k][v.v]++;}));
+ if(Object.keys(rep).length)h+=`<h2>4. 他チームからの返事（あなたが相手だったら、受け取りたいか）</h2><table><tr><th>チーム</th><th>受け取りたい</th><th>条件つき</th><th>受け取らない</th></tr>${Object.keys(rep).sort().map(k=>`<tr><td>${k}</td><td>${rep[k]['受け取りたい']}</td><td>${rep[k]['条件つき']}</td><td>${rep[k]['受け取らない']}</td></tr>`).join('')}</table>`;
+ const why={};solos.filter(o=>o.part==='post').forEach(o=>Object.entries(o.s.reply||{}).forEach(([k,v])=>{if(v&&v.v&&v.why){(why[k]=why[k]||[]).push([v.v,v.why]);}}));
+ if(Object.keys(why).length)h+=`<h2>4-2. 返事の理由（チームに返す・名前なし）</h2><p class="note">チームごとに切り分けて渡せます。誰が書いたかは出していません。</p>${Object.keys(why).sort().map(k=>`<div class="tcard"><b>チーム${k}へ</b><table><tr><th style="width:18%">返事</th><th class="l">理由</th></tr>${['受け取りたい','条件つき','受け取らない'].map(v=>why[k].filter(x=>x[0]===v).map(x=>`<tr><td>${v}</td><td class="l">${esc(x[1])}</td></tr>`).join('')).join('')}</table></div>`).join('')}`;
+ h+=`<h2>5. 各チームの提案（発表の6枚から）</h2>${ids.map(k=>{const t=teams[k],H=t.h||{},T3=t.three||{};return `<div class="tcard"><b>チーム${k}　${esc(t.title)}</b>　<span class="note">${esc(t.oneline)}</span>
+ <table><tr><th class="l" style="width:22%">問い</th><td class="l">${esc(t.tq)}</td></tr><tr><th class="l">誰が・どんな場面</th><td class="l">${esc(H.who)}／${esc(H.scene)}</td></tr><tr><th class="l">渡すもの</th><td class="l">${esc(H.give)}</td></tr><tr><th class="l">組む相手と増えるもの</th><td class="l">${esc(t.partner)}／${esc(t.pGain)}</td></tr><tr><th class="l">始めるための3つの問い</th><td class="l">誰が受け取る：${esc(T3.who)}<br>何から始める：${esc(T3.start)}<br>何が新しく生まれる：${esc(T3.newv)}</td></tr><tr><th class="l">最初の一歩</th><td class="l">${esc(t.first)}</td></tr><tr><th class="l">AIだけの案</th><td class="l">${esc((t.ai&&t.ai.ans||'').slice(0,160))}</td></tr><tr><th class="l">AIだけの案から変わったこと</th><td class="l">${esc(t.aiDiff||'')}</td></tr></table></div>`;}).join('')}`;
+ const tr=[];ids.forEach(k=>{const t=teams[k];(t.troubles||[]).filter(Boolean).forEach(p=>tr.push(['チーム'+k,p]));if(t.h&&t.h.scene)tr.push(['チーム'+k+'（仮説）',t.h.scene]);(t.recs||[]).forEach(x=>{if(x.diff)tr.push(['チーム'+k+'（思い込みだったこと）',x.diff]);});});
+ solos.filter(s=>s.part==='pre').forEach(o=>{if(o.s.trouble)tr.push(['事前課題',o.s.trouble]);});
+ h+=`<h2>6. 中井の課題一覧（3学期の「街づくりを科学する」へ）</h2><table><tr><th class="l" style="width:24%">出どころ</th><th class="l">困りごと・分かったこと</th></tr>${tr.map(r=>`<tr><td class="l">${esc(r[0])}</td><td class="l">${esc(r[1])}</td></tr>`).join('')}</table>`;
+ const refl=solos.filter(s=>s.part==='post'&&s.s.refl);if(refl.length)h+=`<h2>7. 振り返り（3問・名前なし）</h2><table><tr><th class="l">何が思い込みだったか</th><th class="l">いちばん効いた聞き方</th><th class="l">3学期にどう使うか</th></tr>${refl.map(o=>`<tr><td class="l">${esc(o.s.refl.r1)}</td><td class="l">${esc(o.s.refl.r2)}</td><td class="l">${esc(o.s.refl.r3)}</td></tr>`).join('')}</table>`;
+ h+=`<p class="note">記録は名前をかくして数え、この授業のやり方を良くするためにだけ使います。成績には関係しません。</p>`;$('out').innerHTML=h;}
+$('bCsv').onclick=()=>{const ids=Object.keys(teams).sort();const rows=[['区分','項目','◎/言った','○/動いた','△/約束した','？','判定できた割合','いちばん多い答えの割合']];
+ q7rows().forEach(r=>rows.push(['7問',r.id+' '+r.nm,r.pool['◎'],r.pool['○'],r.pool['△'],r.pool['？'],r.st.r,r.st.a]));const pm=rxPool();WHO.forEach(([w,t])=>rows.push(['反応',t,pm[w]['言った'],pm[w]['動いた'],pm[w]['約束した'],'','','']));
+ const csv='﻿'+rows.map(r=>r.map(v=>`"${String(v==null?'':v).replace(/"/g,'""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='目白研心_集計_'+ids.join('')+'.csv';a.click();};
+</script>
+</body>
+</html>
